@@ -11,9 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('comments', function (Blueprint $table) {
-            $table->foreign('product_id')->references('id')->on('products');
-        });
+       Schema::table('comments', function (Blueprint $table) {
+            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
+      });
     }
 
     /**
@@ -21,8 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('comments', function (Blueprint $table) {
-            //
-        });
+       Schema::table('comments', function (Blueprint $table) {
+           $table->dropForeign('comments_product_id_foreign');
+       });
     }
 };

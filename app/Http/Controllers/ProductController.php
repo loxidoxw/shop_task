@@ -10,7 +10,21 @@ class ProductController extends Controller
    public function index(Request $request) // show list of products
    {
     $query = Product::query();
-       return response()->json($query->paginate(10));
+
+       //with category id
+       if ($request->has('category_id')) {
+           $query->where('category_id', $request->category_id);
+       }
+       //min price
+       if ($request->has('min_price')) {
+           $query->where('price', '>=', $request->min_price);
+       }
+       //max price
+       if ($request->has('max_price')) {
+           $query->where('price', '<=', $request->max_price);
+
+           return response()->json($query->paginate(10));
+       }
    }
 
    public function show($id) // show only one requested product
@@ -30,7 +44,7 @@ class ProductController extends Controller
            'description' => 'nullable|string',
            'price' => 'required|numeric|min:0',
            'category_id' => 'required|exists:categories,id',
-           'image' => 'nullable|image|max:2048',
+           'image' => 'nullable|string',
        ]);
 
        $product = Product::create($validated);
