@@ -22,9 +22,8 @@ class ProductController extends Controller
        //max price
        if ($request->has('max_price')) {
            $query->where('price', '<=', $request->max_price);
-
-           return response()->json($query->paginate(10));
        }
+       return response()->json($query->paginate(10));
    }
 
    public function show($id) // show only one requested product
