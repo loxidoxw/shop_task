@@ -4,9 +4,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 
-Route::get('/user', function (Request $request) {
-    return $request->user();
-})->middleware('auth:sanctum');
 
 //Registraion, login and logout
 Route::post('/login', [App\Http\Controllers\AuthController::class, 'login']);
@@ -37,7 +34,7 @@ Route::get('/get_products/{id}/comments', [App\Http\Controllers\CommentControlle
 //orders
 Route::middleware(['auth:sanctum'])->group(function ()
 {
-    Route::get('/orders', [App\Http\Controllers\OrderController::class, 'index']);
-    Route::get('/orders/{id}', [App\Http\Controllers\OrderController::class, 'show']);
+    Route::post('/orders', [App\Http\Controllers\OrderController::class, 'store']); // make order
+    Route::get('/orders', [App\Http\Controllers\OrderController::class, 'index']); //check order history
 }
 );
