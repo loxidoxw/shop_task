@@ -7,6 +7,12 @@ use Illuminate\Http\Request;
 use App\Models\Product;
 class ProductController extends Controller
 {
+    /**
+     * Displays a list of products with optional filtering.
+     *
+     * @param Request $request HTTP request with optional filtering parameters.
+     * @return JsonResponse JSON response with a paginated list of products.
+     */
    public function index(Request $request) // show list of products
    {
     $query = Product::query();

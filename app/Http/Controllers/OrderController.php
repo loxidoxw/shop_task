@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Auth;
 Use App\Models\Order_item;
 class OrderController extends Controller
 {
-    public function index(Request $request)
+    public function index(Request $request) //view order history
     {
       $user = Auth::user();
       $orders = Order::where('user_id', $user->id)->get();
