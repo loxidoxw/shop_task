@@ -7,12 +7,27 @@ use Illuminate\Http\Request;
 
 class CommentController extends Controller
 {
-    public function index(Request $request)
+    /**
+     * Display a listing of the comments.
+     *
+     * @param $id
+     * @return JsonResponse
+     */
+    public function index($id)
     {
-        $query = Comment::all();
-        return response()->json($query);
+        $comments = Comment::where('product_id', $id)->get();
+        return response()->json($comments);
     }
-      public function store(Request $request, $id)
+
+
+    /**
+     * Store created comment in storage.
+     *
+     * @param Request $request
+     * @param int $id
+     * @return JsonResponse
+     */
+      public function store(Request $request)
       {
            $validated = $request->validate([
                'content' => 'required|string',
@@ -25,6 +40,13 @@ class CommentController extends Controller
            response()->json($comment);
       }
 
+
+    /**
+     * Remove the specified comment from storage.
+     *
+     * @param int $id
+     * @return JsonResponse
+     */
       public function destroy($id)
       {
           $comment = Comment::find($id);

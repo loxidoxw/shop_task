@@ -9,6 +9,12 @@ use Illuminate\Support\Facades\Auth;
 Use App\Models\Order_item;
 class OrderController extends Controller
 {
+    /**
+     * Display the order history for the authenticated user.
+     *
+     * @param Request $request
+     * @return JsonResponse
+     */
     public function index(Request $request) //view order history
     {
       $user = Auth::user();
@@ -20,6 +26,13 @@ class OrderController extends Controller
 
       return response()->json(['orders' => $orders], 200);
     }
+
+    /**
+     * Store a newly created order in the database.
+     *
+     * @param Request $request
+     * @return JsonResponse
+     */
    public function store(Request $request)
    {
        $request->validate([

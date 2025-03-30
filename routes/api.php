@@ -13,7 +13,7 @@ Route::post('/logout', [App\Http\Controllers\AuthController::class, 'logout'])->
 //products
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('/create_product', [App\Http\Controllers\ProductController::class, 'store']); // create product
-    Route::put('/products/{id}/edit', [App\Http\Controllers\ProductController::class, 'update']); // update product
+    Route::put('/products/{id}', [App\Http\Controllers\ProductController::class, 'update']); // update product
     Route::delete('/products/{id}', [App\Http\Controllers\ProductController::class, 'destroy']); // delete product
 });
 
@@ -24,11 +24,11 @@ Route::get('/products/{id}', [App\Http\Controllers\ProductController::class, 'sh
 //comments
 Route::middleware(['auth:sanctum'])->group(function ()
 {
-    Route::post('/products/{id}/comments', [App\Http\Controllers\CommentController::class, 'store']);
-    Route::delete('/products/{id}/comments', [App\Http\Controllers\CommentController::class, 'destroy']);
+    Route::post('/comments', [App\Http\Controllers\CommentController::class, 'store']);
+    Route::delete('/comments/{id}', [App\Http\Controllers\CommentController::class, 'destroy']);
 }
 );
-Route::get('/get_products/{id}/comments', [App\Http\Controllers\CommentController::class, 'index']);
+Route::get('comments{id}', [App\Http\Controllers\CommentController::class, 'index']);
 
 
 //orders
