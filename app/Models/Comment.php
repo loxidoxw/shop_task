@@ -2,9 +2,12 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Comment extends Model
 {
+    Use HasFactory;
     protected $fillable = ['id','content', 'user_ud', 'product_id'];
+
 }

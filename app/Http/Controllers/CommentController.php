@@ -1,10 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\Comment;
+
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-
+use App\Models\Comment;
 class CommentController extends Controller
 {
     /**
@@ -29,15 +29,16 @@ class CommentController extends Controller
      */
       public function store(Request $request)
       {
+          $id = auth()->id;
            $validated = $request->validate([
                'content' => 'required|string',
-               'user_id' => 'required|integer',
+               'user_id' => $id,
                'product_id' => 'required|integer',
            ]);
 
            $comment = Comment::create([$validated]);
 
-           response()->json($comment);
+           return response()->json($comment);
       }
 
 
