@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Comment;
+use Illuminate\Support\Facades\Auth;
 class CommentController extends Controller
 {
     /**
@@ -29,14 +30,14 @@ class CommentController extends Controller
      */
       public function store(Request $request)
       {
-          $id = auth()->id;
+          $user = Auth::user();
            $validated = $request->validate([
                'content' => 'required|string',
-               'user_id' => $id,
                'product_id' => 'required|integer',
            ]);
+          $validated['user_id'] = $user->id;
 
-           $comment = Comment::create([$validated]);
+           $comment = Comment::create($validated);
 
            return response()->json($comment);
       }
@@ -52,11 +53,11 @@ class CommentController extends Controller
       {
           $comment = Comment::find($id);
           if (!$comment) {
-              return response()->json(['message' => 'Product not found'], 404);
+              return response()->json(['message' => 'Comment not found'], 404);
           }
           $comment->delete();
 
-          return response()->json(['message' => 'Product deleted']);
+          return response()->json(['message' => 'Comment deleted']);
       }
 }
 
