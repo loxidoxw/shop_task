@@ -3,17 +3,19 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Product\StoreRequest;
+use App\Http\Requests\Product\UpdateRequest;
 use Illuminate\Http\Request;
 use App\Models\Product;
 class ProductController extends Controller
 {
     /**
-     * Displays a list of products with optional filtering.
+     * Displays a list of product with optional filtering.
      *
      * @param Request $request HTTP request with optional filtering parameters.
-     * @return JsonResponse JSON response with a paginated list of products.
+     * @return \Illuminate\Http\JsonResponse JSON response with a paginated list of product.
      */
-   public function index(Request $request) // show list of products
+   public function index(Request $request) // show list of product
    {
     $query = Product::query();
 
@@ -36,7 +38,7 @@ class ProductController extends Controller
      * Display the specified product.
      *
      * @param int $id Product ID.
-     * @return JsonResponse JSON response with product data.
+     * @return \Illuminate\Http\JsonResponse JSON response with product data.
      */
    public function show($id) // show only one requested product
    {
@@ -53,17 +55,11 @@ class ProductController extends Controller
      * Store a newly created product in storage.
      *
      * @param Request $request HTTP request containing product data.
-     * @return JsonResponse JSON response with the created product.
+     * @return \Illuminate\Http\JsonResponse JSON response with the created product.
      */
-   public function store(Request $request) // create new product
+   public function store(StoreRequest $request) // create new product
    {
-       $validated = $request->validate([
-           'name' => 'required|string|max:255',
-           'description' => 'nullable|string',
-           'price' => 'required|numeric|min:0',
-           'category_id' => 'required|exists:categories,id',
-           'image' => 'nullable|string',
-       ]);
+       $validated = $request->validated();
 
        $product = Product::create($validated);
 
@@ -75,22 +71,16 @@ class ProductController extends Controller
      *
      * @param Request $request HTTP request containing updated product data.
      * @param int $id Product ID.
-     * @return JsonResponse JSON response with the updated product.
+     * @return \Illuminate\Http\JsonResponse JSON response with the updated product.
      */
-   public function update(Request $request, $id)  //update product
+   public function update(UpdateRequest $request, $id)  //update product
    {
        $product = Product::find($id);
 
        if (!$product)
        {return response()->json(['message' => 'Product not found'], 404);}
 
-       $validated = $request->validate([
-           'name' => 'required|string|max:255',
-           'description' => 'nullable|string',
-           'price' => 'required|numeric|min:0',
-           'category_id' => 'required|exists:categories,id',
-           'image' => 'nullable|image|max:2048',
-       ]);
+       $validated = $request->validated();
 
        $product->update($validated);
 
@@ -101,7 +91,7 @@ class ProductController extends Controller
      * Remove the specified product from storage.
      *
      * @param int $id Product ID.
-     * @return JsonResponse JSON response confirming deletion.
+     * @return \Illuminate\Http\JsonResponse JSON response confirming deletion.
      */
    public function destroy($id) //delete product
    {

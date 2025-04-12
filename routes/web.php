@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -19,3 +20,5 @@ Route::middleware(['auth:sanctum'])->group(function () {
         return Inertia::render('dashboard');
     })->name('dashboard');
 });
+
+Route::get('product', [App\Http\Controllers\Web\ProductController::class, 'index'])->name('product.index');

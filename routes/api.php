@@ -10,15 +10,15 @@ Route::post('/login', [App\Http\Controllers\AuthController::class, 'login']);
 Route::post('/register', [App\Http\Controllers\AuthController::class, 'register']);
 Route::post('/logout', [App\Http\Controllers\AuthController::class, 'logout'])->middleware('auth:sanctum');
 
-//products
+//product
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('/create_product', [App\Http\Controllers\ProductController::class, 'store']); // create product
-    Route::put('/products/{id}', [App\Http\Controllers\ProductController::class, 'update']); // update product
-    Route::delete('/products/{id}', [App\Http\Controllers\ProductController::class, 'destroy']); // delete product
+    Route::put('/product/{id}', [App\Http\Controllers\ProductController::class, 'update']); // update product
+    Route::delete('/product/{id}', [App\Http\Controllers\ProductController::class, 'destroy']); // delete product
 });
 
-Route::get('/products', [App\Http\Controllers\ProductController::class, 'index']);
-Route::get('/products/{id}', [App\Http\Controllers\ProductController::class, 'show']);
+Route::get('/product', [App\Http\Controllers\ProductController::class, 'index']);
+Route::get('/product/{id}', [App\Http\Controllers\ProductController::class, 'show']);
 
 
 //comments
