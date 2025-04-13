@@ -1,12 +1,14 @@
 <?php
 
-namespace App\Http\Controllers;
-use App\Models\Order;
+namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\JsonResponse;
+use App\Models\Order;
+use App\Models\Order_item;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-Use App\Models\Order_item;
+
 class OrderController extends Controller
 {
     /**

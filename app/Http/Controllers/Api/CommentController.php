@@ -1,11 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Http\Controllers\JsonResponse;
 use App\Models\Comment;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+
 class CommentController extends Controller
 {
     /**
