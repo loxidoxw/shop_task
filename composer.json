@@ -15,7 +15,9 @@
         "laravel/sanctum": "^4.0",
         "laravel/tinker": "^2.10.1",
         "laravel/ui": "^4.6",
-        "tightenco/ziggy": "^2.4"
+        "predis/predis": "2.0",
+        "tightenco/ziggy": "^2.4",
+        "twbs/bootstrap": "5.3.5"
     },
     "require-dev": {
         "fakerphp/faker": "^1.23",
